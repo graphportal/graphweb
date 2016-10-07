@@ -1,0 +1,15 @@
+<div class="col-sm-8 blog-main"><h2>Edit Role</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+           <label  for="nameField">Name*</label>
+           <input  type="text" class="form-control" id="nameField" placeholder="Role Name" data-ng-model="role.name" data-ng-required="true" value="{{ role.name }}" />
+       </div>
+       <button data-ng-click="saveRole()" class="btn btn-primary">Save</button>
+</div>

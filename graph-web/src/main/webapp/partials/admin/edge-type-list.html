@@ -1,0 +1,27 @@
+<div class="col-sm-8 blog-main">
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div style="float: right;">
+             <a class="btn btn-primary" href="#edit/edge-type/new" title="Create a new Edge Type"><i class="fa fa-file-o"> New Edge Type</i></a>
+        </div>
+       <table class="table table-striped">
+		<tbody>
+			<tr data-ng-repeat="edgeType in edgeTypes">
+			<td>
+				{{ edgeType.name }}
+			</td>
+			<td>
+				<div style="float: right">
+					<button class="btn btn-danger btn-sm" data-ng-click="deleteEdgeType(edgeType.name)" title="Delete" data-confirm="Delete Edge Type?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
+				</div>
+			</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

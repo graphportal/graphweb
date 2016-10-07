@@ -1,0 +1,41 @@
+<div class="col-sm-12 blog-main" data-ng-model="query"><h2>Graph Query</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+	    <label  for="nameField">Name</label>
+	    <input class="form-control" id="nameField" placeholder="Query Name, if saving query" data-ng-model="query.queryName" value="{{ query.queryName }}"/>
+	    <label  for="descField">Query</label>
+	    <textarea class="form-control" id="queryField" placeholder="Enter Query" rows="10" data-ng-model="query.query" required>{{ query.query }}</textarea>
+	</div>
+	<div>
+		<button data-ng-click="runQuery()"  class="btn btn-primary"><i class="fa fa-refresh"> Run</i></button>
+		<button data-ng-click="saveQuery()" class="btn btn-primary"><i class="fa fa-save"> Save</i></button>
+	</div>
+	<hr/>
+	<div>Query Results </div>
+	<div data-ng-if="nodes.length == 0"><small>Query not executed or query returned no result</small> </div>
+	<table data-ng-if="nodes.length > 0" class="table table-striped">
+		<tbody>
+			<tr data-ng-repeat="node in nodes">
+			<td>
+				<h4><a href="#node/{{ node.id | encodeURIComponent }}">{{ node.name }}</a></h4>
+				<p data-ng-bind-html="node.description"></p>
+			</td><td>	
+				<div style="float: right"> 
+					<a class="btn btn-primary btn-sm" href="#edit/node/{{ node.id | encodeURIComponent}}" title="Edit Node">
+						<i class="fa fa-edit"> Edit</i>
+					</a>
+					<button class="btn btn-primary btn-sm" data-ng-click="copyToCB(node.id)" title="Copy to Clipboard"><i class="fa fa-copy"> Copy</i></button>
+					<button class="btn btn-danger btn-sm" data-ng-click="deleteNode(node.id)" title="Delete"><i class="fa fa-trash-o"> Delete</i></button>
+				</div>
+			</td>	
+			</tr>
+		</tbody>
+	</table>		
+</div>

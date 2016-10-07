@@ -1,0 +1,69 @@
+<div class="col-sm-8 blog-main"><h2>User Details</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div>
+		<div>Username: {{ user.name }}</div>
+		<div>
+           <a class="btn btn-primary" href="#edit/user/{{ user.id | encodeURIComponent }}" title="Edit User"><i class="fa fa-edit"> Edit</i></a>
+           <button class="btn btn-danger" data-ng-click="deleteUser(user.id)" title="Deactivate User" data-confirm="Deactivate User?"><i class="fa fa-trash-o"> Delete</i></button>
+		</div>
+	</div>
+	<div>
+		<h3>User Roles</h3>
+		<table class="table">
+		<thead class="thead-inverse">
+			<tr>
+            	<th>Role</th><th></th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr data-ng-repeat="role in roles">
+            <td>{{ role.name }}</td><td> <button class="btn btn-danger btn-sm" data-ng-click="delUserRole(role.id, user.id)" title="Delete" data-confirm="Delete User Role?"><i class="fa fa-trash-o"> Delete</i></button></td>
+            </tr>
+		</tbody>
+		<tfoot>
+           	<tr>
+           	<td>
+           		<select data-ng-model="selectedRole" data-ng-options="newRole.name for newRole in allRoles track by newRole.id">
+           		</select>
+           		<button class="btn btn-primary btn-sm" data-ng-click="addUserRole()"><i class="fa fa-plus-square-o"> Add</i></button>
+           	</td>
+           	<td>
+	        </td>
+	        </tr>
+		</tfoot>
+		</table>
+	</div>
+	<div>
+		<h3>User Permissions</h3>
+		<table class="table">
+		<thead class="thead-inverse">
+            <tr>
+            	<th>Permission</th><th></th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr data-ng-repeat="permission in permissions">
+            <td>{{ permission.name }}</td><td> <button class="btn btn-danger btn-sm" data-ng-click="delUserPermission(permission.id, user.id)" title="Delete" data-confirm="Delete User Permission?"><i class="fa fa-trash-o"> Delete</i></button></td>
+            </tr>
+		</tbody>
+		<tfoot>
+           	<tr>
+           	<td>
+           		<select data-ng-model="selectedPermission" data-ng-options="newPermission.name for newPermission in allPermissions track by newPermission.id">
+           		</select>
+           		<button class="btn btn-primary btn-sm" data-ng-click="addUserPermission()"><i class="fa fa-plus-square-o"> Add</i></button>
+           	</td>
+           	<td>
+	        </td>
+	        </tr>
+		</tfoot>
+		</table>            
+	</div>
+</div>

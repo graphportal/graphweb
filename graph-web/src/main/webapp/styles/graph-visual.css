@@ -1,0 +1,81 @@
+.node {
+	fill: #996;
+	stroke: #996;
+	stroke-width: 2px;
+}
+
+.nodedeleted {
+	fill: #f00;
+	stroke: #f00;
+	stroke-width: 1px;
+}
+
+.nodenew {
+	fill: #00f;
+	stroke: #00f;
+	stroke-width: 1px;
+}
+
+.nodetext {
+	pointer-events: none;
+	font: 12px sans-serif;
+	fill: #000;
+	stroke-width: .01em;
+}
+
+.nodetextdeleted {
+	pointer-events: none;
+	font: 12px sans-serif;
+	text-decoration: line-through;
+	stroke-width: .01em;
+}
+
+.nodetextnew {
+	pointer-events: none;
+	font: 15px sans-serif;
+	font-weight: bold;
+	color: blue;
+	stroke-width: .01em;
+}
+
+.edge {
+	stroke: #ccf;
+	stroke-width: 3px;
+}
+
+.edgedeleted {
+	stroke: #f00;
+	stroke-width: 3px;
+}
+
+.edgenew {
+	stroke: #ccf;
+	stroke-width: 3px;
+}
+
+.edgetext {
+	pointer-events: none;
+	font: 10px sans-serif;
+}
+
+.edgetextdeleted {
+	pointer-events: none;
+	font: 10px sans-serif;
+	text-decoration: line-through;
+}
+
+.edgetextnew {
+	pointer-events: none;
+	font: 10px sans-serif;
+	text-decoration: underline;
+}
+
+.selected {
+	stroke: #f0f;
+	stroke-width: 3px;
+}
+
+.selectedge {
+	stroke: #f0f;
+	stroke-width: 3px;
+}

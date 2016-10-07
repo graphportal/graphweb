@@ -1,0 +1,21 @@
+<div class="col-sm-8 blog-main"><h2>Node Types</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<ul>
+		<li data-ng-repeat="nodeType in nodeTypes">{{ nodeType.name }} 
+				<a href="#edit/node-type/{{ nodeType.id }}" title="Edit Node Type"><img src="images/edit.png" title="Edit"></img></a> 
+				<img class="clickable" data-ng-click="deleteNodeType(nodeType.id)" src="images/delete.png" title="Delete"></img>
+		</li>
+	</ul>
+	<nav>
+           <ul class="pager">
+             <li><a href="#edit/node-type/new" title="Create a new Node Type">New Node type</a></li>
+           </ul>
+        </nav>	 	
+</div>

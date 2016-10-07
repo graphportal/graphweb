@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html data-ng-app="graphVisApp" lang="en">
+<head>
+    <meta name="author" content="Sans Technologies">
+	<meta http-equiv="Content-Type" content="text/html">
+	<link href="styles/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="styles/bootstrap.min.css" rel="stylesheet">
+	<link href="styles/graph-theme.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="styles/graph-visual.css" />
+	<title>Graph Portal - Visual Editor</title>
+</head>
+<body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="index.html#/home">Home</a>
+          <a class="blog-nav-item" href="admin.html#/home">Admin</a>
+          <a class="blog-nav-item" href="about.html#">About</a>
+        </nav>
+      </div>
+    </div>
+    <div class="graph-container">
+		<div class="blog-header"><h1 class="blog-title">Graph Editor</h1></div>
+      	<div data-ng-controller="GraphVisCtrl"> 
+			<div>
+				<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+			  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+			</div>
+			
+			<div style="width: 100%; display: table;">
+			    <div style="display: table-row;">
+			        <div style="width: 300px; display: table-cell;vertical-align: top; border-style: outset;">
+						<div>
+							<div style="padding: 10px 10px 5px 10px;">
+								<h2><span class="label label-primary">Edit Controls</span></h2>
+							</div>
+							<div style="padding: 10px 10px 5px 10px;">
+								<span class="label label-default"> New Node Name</span> <input type="text" id="NodeName"/>
+								<button class="btn btn-primary btn-sm" data-ng-click="addNode()">Add Node</button>
+							</div>
+							<div style="padding: 5px 10px 5px 10px;">
+								<span class="label label-default"> New Edge Type</span> <select class="btn" name="linkField" data-ng-model="edgeType">
+				           			<option data-ng-repeat="edgeType in edgeTypes" value="{{edgeType.name}}">{{ edgeType.name }}</option>
+				       			</select>
+			       			</div>
+							<div style="padding: 5px 10px 10px 10px;">
+								<label><input id="StopAnimation" name="StopAnimation" type="checkbox" data-ng-model="stopAnimation" /> <span class="label label-default"> Stop Animation</span> </label>
+			       			</div>
+							<!-- div style="padding: 5px 10px 10px 10px;">
+								<span class="label label-default"> Depth</span> <input id="Depth" name="Depth" type="text"/>
+			       			</div-->
+							<div style="padding: 5px 10px 10px 10px;">
+								<hr/>
+			       			</div>
+							<div style="padding: 5px 10px 5px 10px;">
+								<button class="btn btn-primary btn-sm" data-ng-click="save()"><i class="fa fa-save"> Save</i></button>
+								<button class="btn btn-primary btn-sm" data-ng-click="reset()"><i class="fa fa-refresh"> Reset</i></button>
+			       			</div>
+							<div style="padding: 5px 10px 10px 10px;">
+								<button class="btn btn-danger btn-sm" data-ng-click="deleteNode()"><i class="fa fa-trash-o"> Delete Node</i></button>
+								<button class="btn btn-danger btn-sm" data-ng-click="deleteEdge()"><i class="fa fa-trash-o"> Delete Edge</i></button>
+			       			</div>
+							<div style="padding: 5px 10px 10px 10px;">
+								<hr/>
+			       			</div>
+							<div style="padding: 5px 10px 10px 10px;">
+								<span class="label label-info"> Shift+Click</span> Pivot graph on node
+			       			</div>
+							<div style="padding: 5px 10px 10px 10px;">
+								<span class="label label-info"> Cntrl+Click</span> Node detail page
+			       			</div>
+							<div style="padding: 5px 10px 10px 10px;">
+								<span class="label label-info"> Drag & Drop</span> Create link
+			       			</div>
+						</div>
+			        </div>
+			        <div style="display: table-cell;">
+						<div id="GraphEditor">
+						</div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+
+    <footer class="blog-footer">
+      <p><a href="index.html#/home">Home</a> |
+		<a href="index.html#query">Query</a> |
+		<a href="index.html#cb">Clip Board</a></p>
+    </footer>	
+    
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-route.min.js"></script>
+	<script src="scripts/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+	<script type="text/javascript" src="scripts/graph-editor.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.1.js"></script>	
+</body>
+</html>

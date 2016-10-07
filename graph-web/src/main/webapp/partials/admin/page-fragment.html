@@ -1,0 +1,17 @@
+<div class="col-sm-8 blog-main"><h2>Page Fragment Details</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div>
+           Name: {{ pageFragment.name }}
+           <div>
+            <a class="btn btn-primary btn-sm" href="#edit/page-fragment/{{ pageFragment.id | encodeURIComponent }}" title="Edit Page Fragment"><i class="fa fa-edit"> Edit</i> </a>
+             <button class="btn btn-danger btn-sm" data-ng-click="deletePageFragment(pageFragment.id)" data-confirm="Delete Page Fragment?"><i class="fa fa-trash-o"> Delete</i></button>
+            </div>
+       </div>
+</div>

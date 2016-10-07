@@ -1,0 +1,17 @@
+<div class="col-sm-8 blog-main"><h2>Clip Board</h2>
+	<div class="error" data-ng-show="errors.serviceErrors"> {{ errors.serviceErrors }}</div>
+       <table class="table table-striped">
+		<tbody>
+		<tr data-ng-repeat="cbNode in cbNodes">
+		<td>
+			{{ cbNode.name }} 
+		</td>
+		<td>
+			<div style="float: right" data-ng-if="showControls">
+				<button class="btn btn-danger btn-sm" data-ng-click="deleteClipBoardEntry(cbNode.id)" title="Remove from ClipBoard"><i class="fa fa-trash-o"> <small>Remove from ClipBoard</small></i></button>
+			</div>
+		</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,15 @@
+<div class="col-sm-12 blog-main" data-ng-model="nodeContent"><h2>Node Content Editor</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+    	<label  for="descField">Content</label>
+        <textarea id="node-content" class="form-control" id="descField" placeholder=" Enter Content" rows="20" data-ng-model="node.content"></textarea>
+	</div>
+	<button data-ng-click="saveContent()" class="btn btn-primary"><i class="fa fa-save"> Save</i></button>
+</div>

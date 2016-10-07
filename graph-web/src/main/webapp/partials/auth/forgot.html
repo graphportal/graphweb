@@ -1,0 +1,21 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <h2>Forgot Password</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+    <form name="form" data-ng-submit="forgotPassword()" role="form">
+        <div class="form-group" data-ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+            <label for="username">Email</label>
+            <input type="text" name="username" id="username" class="form-control" data-ng-model="username" required />
+            <span data-ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Email is required</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" data-ng-disabled="form.$invalid" class="btn btn-primary">Recover Password</button>
+        </div>
+    </form>
+</div>

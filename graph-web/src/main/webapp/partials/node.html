@@ -1,0 +1,90 @@
+<div class="col-sm-8 blog-main">
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	
+	<div class="blog-post">
+		<div>
+			<a href="index.html#/nodes/domain/{{ node.domainId | encodeURIComponent }}/">{{ domain.name }}</a>
+		</div>
+		
+		<h2 class="blog-post-title" data-ng-bind-html="node.name"></h2>
+		<p class="blog-post-meta">Created by {{ node.createdBy }} on {{ node.creationDate | date:'yyyy-MM-dd h:mm a' }}</p>
+		<p data-ng-bind-html="node.description"></p>
+		<hr>
+		<div class="content" data-ng-bind-html="content"></div>
+		<div class="content-buttons">
+			<div data-ng-switch data-on="node.contentType">
+    			<div data-ng-switch-when="html">
+					<a data-ng-if="showControls" class="btn btn-primary btn-sm" href="edit-text.html#?nodeId={{ node.id | encodeURIComponent }}" title="Edit Node Content">
+					<i class="fa fa-edit"> <small>Edit Content</small></i>
+					</a> 
+    			</div>
+    			<div data-ng-switch-default>
+					<a data-ng-if="showControls" class="btn btn-primary btn-sm" href="#edit/content/node/{{ node.id | encodeURIComponent }}" title="Edit Node Content">
+						<i class="fa fa-edit"> <small>Edit Content</small></i>
+					</a>
+    			</div>
+			</div>
+		</div>
+		<hr>
+		<div data-ng-if="showControls">
+			<a class="btn btn-primary btn-sm" href="#edit/node/{{ node.id | encodeURIComponent }}" title="Edit Node">
+				<i class="fa fa-edit"> <small>Edit</small></i>
+			</a>
+			<button class="btn btn-primary btn-sm" data-ng-click="copyToCB(node.id)" title="Copy"><i class="fa fa-copy"> <small>Copy</small></i></button>
+			<a class="btn btn-primary btn-sm" href="graph-visual-edit.html#?nodeId={{ node.id | encodeURIComponent }}" title="Link Node">
+				<i class="fa fa-puzzle-piece"> <small>Graph</small></i>
+			</a>
+			<a class="btn btn-primary btn-sm" href="#link/node/{{ node.id | encodeURIComponent }}" title="Link Node">
+				<i class="fa fa-chain"> <small>Link</small></i>
+			</a>
+			<a class="btn btn-primary btn-sm" href="#attach/node/{{ node.id | encodeURIComponent }}" title="Link Node">
+				<i class="fa fa-paperclip"> <small>Attach</small></i>
+			</a>
+			<a class="btn btn-primary btn-sm" href="#new/child/node/{{ node.id | encodeURIComponent }}?domainId={{ node.domainId | encodeURIComponent}}">
+				<i class="fa fa-arrow-right"> <small>New Child</small></i>
+			</a>
+			<a class="btn btn-primary btn-sm" href="#new/parent/node/{{ node.id | encodeURIComponent }}?domainId={{ node.domainId | encodeURIComponent}}">
+				<i class="fa fa-arrow-left"> <small>New Parent</small></i>
+			</a>
+			<button class="btn btn-danger btn-sm" data-ng-click="deleteNode(node.id)" title="Delete" data-confirm="Delete Node?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
+		</div>
+		<div data-ng-if="attachments.length != 0">
+			<div class="title" >Attachments</div>
+			<div >
+				<ul>
+					<li data-ng-repeat="attachment in attachments">{{ attachment.fileName }} 
+					<button class="btn btn-primary btn-sm" data-ng-click="downloadAttachment(attachment.id)" title="Delete Attachment"><i class="fa fa-download"></i> Download</button>
+					<button class="btn btn-danger btn-sm" data-ng-click="deleteAttachment(attachment.id)" title="Delete Attachment" data-confirm="Delete Attachment?"><i class="fa fa-trash-o"></i> Delete</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+	<div class="sidebar-module" data-ng-if="parents.nodes.length > 0">
+		<div class="sidebar-module-inset">
+			<h4>{{ parents.title }}</h4>
+			<ul>
+				<li data-ng-repeat="parent in parents.nodes"><a href="#node/{{ parent.node.id | encodeURIComponent }}">{{ parent.node.name }}</a>&nbsp;&nbsp;
+				<button class="btn btn-sm" data-ng-click="unlink(parent.node.id, node.id, parent.edge)" title="Unlink"><i class="fa fa-unlink"></i></button></li>
+			</ul>
+		</div>	
+	</div>
+	<div class="sidebar-module" data-ng-if="children.nodes.length > 0">
+		<div class="sidebar-module-inset">
+			<h4>{{ children.title }}</h4>
+			<ul>
+				<li data-ng-repeat="child in children.nodes"><a href="#node/{{ child.node.id | encodeURIComponent }}">{{ child.node.name }}</a>&nbsp;&nbsp;
+					<button class="btn btn-sm" data-ng-click="unlink(node.id, child.node.id, child.edge)" title="Unlink"><i class="fa fa-unlink"></i></button>
+				</li>
+			</ul>	
+		</div>	
+	</div>		
+</div>

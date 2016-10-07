@@ -1,0 +1,28 @@
+<div class="col-sm-8 blog-main">
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div style="float: right;">
+             <a class="btn btn-primary" href="#edit/role/new" title="Create a new Role"><i class="fa fa-file-o"> New Role</i></a>
+        </div>
+       <table class="table table-striped">
+		<tbody>
+			<tr data-ng-repeat="role in roles">
+			<td>
+				<span class="blog-post-subtitle"><a href="#role/{{ role.id | encodeURIComponent }}">{{ role.name }}</a></span>
+			</td>
+			<td>
+				<div style="float: right">
+					<a class="btn btn-primary btn-sm" href="#edit/role/{{ role.id | encodeURIComponent }}" title="Edit Role"><i class="fa fa-edit"> <small>Edit</small></i> </a>
+					<button class="btn btn-danger btn-sm" data-ng-click="deleteRole(role.id)" title="Delete" data-confirm="Delete Role?"><i class="fa fa-trash-o fa-lg"> <small>Delete</small></i></button>
+				</div>
+			</td>
+			</tr>
+		</tbody>
+	</table>				
+</div>

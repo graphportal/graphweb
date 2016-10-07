@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html data-ng-app="graphApp" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Example Graph Portal Demo">
+    <meta name="author" content="Sans Technologies">
+	<meta http-equiv="Content-Type" content="text/html">
+	<link href="styles/graph-theme.css" rel="stylesheet" type="text/css">
+	<link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css'>
+	<link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
+	<style>
+	.ta-editor {
+	  min-height: 300px;
+	  height: auto;
+	  overflow: auto;
+	  font-family: inherit;
+	  font-size: 100%;
+	}
+	</style>
+	<title>Graph Portal</title>
+</head>
+</head>
+<body>
+	<div class="blog-masthead">
+		<div class="container">
+			<nav class="blog-nav">
+				<a class="blog-nav-item active" href="index.html#/home">Home</a>
+				<a class="blog-nav-item" href="admin.html#/home">Admin</a>
+				<a class="blog-nav-item" href="about.html">About</a>
+			</nav>
+		</div>
+	</div>
+	<div class="container">
+		<div class="blog-header">
+			<h1 class="blog-title">Graph Portal</h1>
+			<p class="lead blog-description">Demo portal based on graph theory.</p>
+		</div>
+		<div data-ng-controller="TextEditorController" class="container app">
+			<div>
+				<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+			  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+			</div>
+			<div><h2>{{ name }}</h2></div>
+			<div data-text-angular="text-angular" name="htmlcontent" data-ng-model="content" data-ta-disabled='disabled'></div>
+			<button class="btn btn-primary" data-ng-click="save()"><i class="fa fa-save"> Save</i></button>
+			<button class="btn btn-primary" back><i class="fa"> Cancel</i></button>
+		</div>
+	</div>
+
+	<footer class="blog-footer">
+		<p><a href="index.html#home">Home</a> | 
+			<a	href="index.html#query">Query</a> |
+			<a	href="index.html#cb">Clip Board</a>
+		</p>
+	</footer>
+	<script	src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js'></script>
+	<script	src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.min.js'></script>
+	<script	src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
+	<script src="scripts/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.1.js"></script>
+	<script src='scripts/graph-text.js'></script>
+	
+</body>

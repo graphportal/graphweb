@@ -1,0 +1,31 @@
+<div class="col-sm-8 blog-main">
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div style="float: right;">
+             <a class="btn btn-primary" href="#edit/user/new" title="Create a new User"><i class="fa fa-file-o"> New User</i></a>
+	</div>
+       <table class="table table-striped">
+		<tbody>
+			<tr class="blog-post-meta" data-ng-repeat="user in users">
+			<td>
+				<a href="#user/{{ user.id | encodeURIComponent }}">{{ user.name }}</a>
+				</td>
+				<td>
+					<div style="float: right">
+						<a class="btn btn-primary btn-sm"href="#edit/user/{{ user.id | encodeURIComponent }}" title="Edit User"><i class="fa fa-edit"> <small>Edit</small></i></a>
+						<button class="btn btn-danger btn-sm" data-ng-click="deleteUser(user.id)" title="Deactivate User" data-confirm="Deactivate User?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+   		<uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+	</div>
+</div>

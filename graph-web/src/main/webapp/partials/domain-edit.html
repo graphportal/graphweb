@@ -1,0 +1,22 @@
+<div class="col-sm-12 blog-main"><h2>Edit Domain</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+           <label for="nameField">Name</label>
+           <input type="text" class="form-control" id="nameField" placeholder="Domain Name" data-ng-model="domain.name" data-ng-required="true" value="{{ domain.name }}" />
+       </div>
+       <div class="form-group">
+           <label for="descField">Description (optional)</label>
+           <textarea class="form-control" id="descField" placeholder=" Description" rows="17" data-ng-model="domain.description">{{ domain.description }}</textarea>
+       </div>
+       <div>
+       	<button data-ng-click="saveDomain()" class="btn btn-primary"><i class="fa fa-save"> Save</i></button>
+       	<button back class="btn btn-primary"><i class="fa"> Cancel</i></button>
+       </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="col-sm-8 blog-main"><h2>Role Details</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div>
+    	<div>Role: {{ role.name }}</div>
+    	<div>
+        	<a class="btn btn-primary" href="#edit/role/{{ role.id | encodeURIComponent }}" title="Edit Role"><i class="fa fa-edit"> Edit</i></a>
+            <button class="btn btn-danger" data-ng-click="deleteRole(role.id)" title="Delete" data-confirm="Delete Role?"><i class="fa fa-trash-o"> Delete</i></button>
+        </div>
+    </div>
+	<div>
+		<h3>Role Permissions</h3>
+		<table class="table">
+		<thead class="thead-inverse">
+			<tr>
+				<th>Permission</th><th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="permission in permissions">
+			<td>{{ permission.name }}</td><td> 
+				<button class="btn btn-danger btn-sm" data-ng-click="delRolePermission(permission.id, role.id)" title="Delete" data-confirm="Delete Role Permission?"><i class="fa fa-trash-o"> Delete</i></button></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+          	<td>
+				<select data-ng-model="selectedPermission" data-ng-options="newPermission.name for newPermission in allPermissions track by newPermission.id">
+				</select>
+				<button data-ng-click="addRolePermission()" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"> Add</i></button>
+          	</td>
+          	<td>
+			</td>
+			</tr>
+		</tfoot>
+		</table>            
+	</div>
+</div>

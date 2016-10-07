@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html data-ng-app="graphApp" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Example Graph Portal Demo">
+    <meta name="author" content="Sans Technologies">
+	<meta http-equiv="Content-Type" content="text/html">
+	<link href="styles/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="styles/graph-theme.css" rel="stylesheet" type="text/css">
+	<title>{{ title }}</title>
+</head>
+<body>
+	<div style="width: 100%; display: table;">
+	    <div style="display: table-row">
+	    	<div style="width: 55%; display: table-cell;"></div>
+	    	<div style="display: table-cell;">
+	        	<form >
+	        		<table><tr>
+	  				<td style="padding: 1px 1px 1px 0px;">
+	  					<input class="form-control input-sm" placeholder="Search Query" type="text" id="searchQuery" onkeydown = "if (event.keyCode == 13) {search()}"/></td>
+					<td><button type="button" id="searchButton" value="Search" class="btn btn-primary btn-sm" onclick="search()" ><i class="fa fa-search"></i> Search</button>
+					</td>
+					</tr></table>
+				</form>
+	        </div>
+	        <div style="display: table-cell;">
+		        <div data-ng-controller="LoginController">
+		          	<div data-ng-if="isLoggedIn == true"><a href="" data-ng-click="logout()">Logout</a>
+		          	</div>
+		          	<div data-ng-if="isLoggedIn == false" >
+		          		<table>
+		          		<tr><td style="padding: 1px;">
+		          				<input class="form-control input-sm" id="username" data-ng-model="user.name"  placeholder="Email" type="text"/>
+		          			</td>
+		          			<td style="padding: 1px;">
+		          				<input class="form-control input-sm" id="password" data-ng-model="user.password"  placeholder="Password" type="password" /></td>
+		          			<td><button class="btn btn-primary btn-sm" data-ng-click="login()"><i class="fa fa-user fa-lg"></i> Login</button></td></tr>
+		          		</table>
+		          	</div>
+			    </div>
+	        </div>
+	        <div style="display: table-cell; float: right;"><div class="checkbox"><input type="checkbox" data-ng-click="setEditControll(showControls)" data-ng-model="showControls"/>Show Controls&nbsp;&nbsp;</div></div>
+	    </div>
+	</div>
+    <div style="clear: both"></div>
+    <div data-ng-bind-html="menu"></div>
+    <div class="container">
+		<div data-ng-bind-html="header"></div>
+		<!-- Place Holder for Partials -->
+		<div id="content" data-ng-view=""></div>
+	</div>
+
+    <div data-ng-bind-html="footer"></div>
+
+	<script src="scripts/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
+	<script src="scripts/angular-route.min.js"></script>
+	<script src="scripts/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.1.js"></script>
+	<script src="scripts/graph.js"></script>
+		
+</body>
+</html>

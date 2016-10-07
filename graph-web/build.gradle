@@ -1,0 +1,6 @@
+apply plugin: 'war'
+
+version = "1.0"
+
+
+

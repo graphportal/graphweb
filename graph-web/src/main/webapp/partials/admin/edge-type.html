@@ -1,0 +1,20 @@
+<div class="col-sm-8 blog-main"><h2>Edge Types</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<ul>
+		<li data-ng-repeat="edgeType in edgeTypes">{{ edgeType.name }} 
+				<img class="clickable" data-ng-click="deleteEdgeType(edgeType.name)" src="images/delete.png" title="Delete" data-confirm="Delete Edge Type?"></img>
+		</li>
+	</ul>
+	<nav>
+           <ul class="pager">
+             <li><a href="#edit/edge-type/new" title="Create a new Edge Type">New Edge type</a></li>
+           </ul>
+        </nav>		
+</div>

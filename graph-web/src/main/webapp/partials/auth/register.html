@@ -1,0 +1,31 @@
+<div class="col-sm-8 blog-main"><h2>Register</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+           <label  for="nameField">Name*</label>
+           <input  type="text" class="form-control" id="nameField" placeholder="User Name" data-ng-model="user.name" data-ng-required="true" value="{{ user.name }}" />
+       </div>
+       <div class="form-group">
+           <label  for="pwdField">Password*</label>
+           <input type="password" class="form-control" id="pwdField" placeholder="Password" data-ng-model="user.password" data-ng-required="true" value="{{ user.password }}"/>
+           <label  for="question1">Security Question 1</label>
+           <input type="text" class="form-control" id="question1" placeholder="Security Question 1" data-ng-model="user.question1" value="{{ user.question1 }}"/>
+           <label  for="answer1">Answer 1</label>
+           <input type="text" class="form-control" id="answer1" placeholder="Answer 1" data-ng-model="user.answer1" value="{{ user.answer1 }}"/>
+           <label  for="question2">Security Question 2</label>
+           <input type="text" class="form-control" id="question2" placeholder="Security Question 2" data-ng-model="user.question2"  value="{{ user.question2 }}"/>
+           <label  for="answer2">Answer 2</label>
+           <input type="text" class="form-control" id="answer2" placeholder="Answer 2" data-ng-model="user.answer2" value="{{ user.answer2 }}"/>
+           <label  for="question3">Security Question 3</label>
+           <input type="text" class="form-control" id="question3" placeholder="Security Question 3" data-ng-model="user.question3"  value="{{ user.question3 }}"/>
+           <label  for="answer3">Answer 3</label>
+           <input type="text" class="form-control" id="answer3" placeholder="Answer 3" data-ng-model="user.answer3" value="{{ user.answer3 }}"/>
+       </div>
+       <button data-ng-click="saveUser()" class="btn btn-primary">Register</button>
+</div>

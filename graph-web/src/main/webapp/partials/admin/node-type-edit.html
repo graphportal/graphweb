@@ -1,0 +1,30 @@
+<div class="col-sm-8 blog-main" data-ng-model="nodeType"><h2>Edit Node Types</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+           <label  for="nameField">Name*</label>
+           <input  type="text" class="form-control" id="nameField" placeholder="Node Type Name" data-ng-required="true"  value="{{ nodeType.name }}" />
+       </div>	
+       <div class="form-group">
+           <label  for="descField">Description</label>
+           <textarea class="form-control" id="descField" placeholder=" Description" rows="5">{{ nodeType.description }}</textarea>
+       </div>
+       <div class="form-group">
+           <label  for="contentTypeField">Node Content Type</label>
+           <select class="form-control" id="contentTypeField" >
+           	<option value="html">HTML</option>
+           	<option value="text">Text</option>
+           	<option value="csv">CSV</option>
+           	<option value="xml">XML</option>
+           	<option value="json">JSON</option>
+           	<option value="java">Java</option>
+       	</select>
+       </div>     	
+	<button data-ng-click="saveNodeType()" class="btn btn-primary">Save</button>
+</div>

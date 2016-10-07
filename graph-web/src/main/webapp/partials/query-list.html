@@ -1,0 +1,29 @@
+<div class="col-sm-8 blog-main">
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div data-ng-if="showControls" style="float: right;">
+    	<a class="btn btn-primary" href="#edit/query/new" title="Create a new Query"><i class="fa fa-file-o"> New Query</i></a>
+    </div>
+    <table class="table table-striped">
+		<tbody>
+			<tr class="blog-post" data-ng-repeat="query in queries">
+			<td>
+				<span class="blog-post-subtitle"><a href="#query/{{ query.id | encodeURIComponent }}">{{ query.queryName }}</a></span>
+				<p data-ng-bind-html="query.description"></p>
+			</td>
+			<td>
+				<div style="float: right" data-ng-if="showControls">
+					<a class="btn btn-primary btn-sm" href="#edit/query/{{ query.id | encodeURIComponent }}" title="Edit Query"> <i class="fa fa-edit"> <small>Edit</small></i></a> 
+					<button class="btn btn-danger btn-sm" data-ng-click="deleteQuery(query.id)" title="Delete" data-confirm="Delete Query?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
+				</div>
+			</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

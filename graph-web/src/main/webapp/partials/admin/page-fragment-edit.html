@@ -1,0 +1,24 @@
+<div class="col-sm-12 blog-main"><h2>Edit Page Fragment</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+           <label  for="nameField">Name*</label>
+           <input  type="text" class="form-control" id="nameField" placeholder="Page Fragment Name" data-ng-model="pageFragment.name" data-ng-required="true" value="{{ pageFragment.name }}" />
+           <div class="form-group">
+            <label  for="contentField">Page Fragment*</label>
+            <textarea class="form-control" id="contentField" placeholder="HTML Fragment" data-ng-model="pageFragment.htmlFragment" rows="17">{{ pageFragment.htmlFragment }}</textarea>
+            <label  for="descriptionField">Description (optional)</label>
+            <textarea class="form-control" id="contentField" placeholder="HTML Fragment" data-ng-model="pageFragment.description" rows="3">{{ pageFragment.description }}</textarea>
+       	</div>
+   	</div>
+   <div>
+       <button data-ng-click="savePageFragment()" class="btn btn-primary"><i class="fa fa-save"> Save</i></button>
+       <button class="btn btn-primary" back><i class="fa"> Cancel</i></button>
+   </div>
+</div>

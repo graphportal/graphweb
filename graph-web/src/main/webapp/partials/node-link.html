@@ -1,0 +1,29 @@
+<div class="col-sm-12 blog-main"><h2>Link Node</h2>
+	<div>
+		<script type="text/ng-template" id="alert.html">
+				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+					<div ng-transclude></div>
+				</div>
+			</script>
+	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	</div>
+	<div class="form-group">
+		<label  for="nodeField">Source Node</label>
+		<input class="form-control" name="nodeField" id="nodeField" type="text" value="{{ node.name }}" readonly />
+	</div>
+	<div class="form-group">
+    	<label  for="edgeTypeField">Select Edge Type</label>
+    	<select class="form-control" name="edgeTypeField" id="edgeTypeField" data-ng-model="selectedEdgeType" 
+        	data-ng-options="edgeType as edgeType.name for edgeType in edgeTypes">
+       	</select>
+    </div>
+    <div> <label> Select Target Node(s) </label> </div>
+ 	<div data-ng-repeat="node in cbNodes">
+		<div> 
+			<input type="checkbox" data-ng-change="updateSelection(checked, node)" data-ng-model="checked"  data-ng-checked="isChecked(node.id)" /> {{ node.name }} 
+		</div>
+	</div>
+    <div>
+		<button data-ng-click="linkNode()" class="btn btn-primary"><i class="fa fa-chain"> Link</i></button>
+	</div>
+</div>
