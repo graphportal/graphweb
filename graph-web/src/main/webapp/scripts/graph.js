@@ -771,7 +771,6 @@ graphApp.controller('NodeAttachmentController', function($scope, $routeParams, g
     };
 	$scope.downloadAttachment = function(attachmentId) {
 		$window.open('resource/graph/attachment/' + $filter('encodeURIComponent') (attachmentId));
-//		$window.location.href = graphDataFactory.downloadAttachment($filter('encodeURIComponent')(attachmentId));
 	};
 });
 

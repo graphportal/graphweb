@@ -104,7 +104,7 @@ graphVisApp.controller('GraphVisCtrl', function($scope, $location, graphDataFact
 		console.log(nodeGraph);
 		graphDataFactory.getSaveGraph(nodeGraph).then(
 			function(response) { 
-				//$scope.reset();
+				$scope.reset();
 			}, 
 			function(response) { 
 				$scope.alerts.push({type: 'danger', msg: response.data});
