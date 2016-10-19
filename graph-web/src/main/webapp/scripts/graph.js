@@ -294,10 +294,7 @@ graphApp.factory('graphDataFactory', function($http) {
 		return [	
 		     {id: 'html', name: 'HTML Content'},
 			   {id: 'text', name: 'Plain Text'},
-			   {id: 'json', name: 'JSON'},
-			   {id: 'xml',  name: 'XML'},
-			   {id: 'form', name: 'Form Fields'},
-			   {id: 'java', name: 'Java Bean'}
+			   {id: 'text+', name: 'Text+'}
 			   ];
 	};
 	
