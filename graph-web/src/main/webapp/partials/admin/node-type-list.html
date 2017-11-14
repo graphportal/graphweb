@@ -8,18 +8,18 @@
 	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
 	</div>
 	<div style="float: right;">
-    	<a class="btn btn-primary" href="#edit/node-type/new" title="Create a new Edge Type"><i class="fa fa-file-o"> New Node Type</i></a>
+    	<a class="btn btn-primary" href="#node-type/new/edit" title="Create a new Node Type"><i class="fa fa-file-o"> New Node Type</i></a>
     </div>
     <table class="table table-striped">
 		<tbody>
 		<tr class="blog-post" data-ng-repeat="nodeType in nodeTypes">
-		<td>
-			<a href="#nodeType/{{ nodeType.id | encodeURIComponent }}">{{ nodeType.name }}</a>
+		<td data-ng-show="nodeType.name != 'Default'">
+			{{ nodeType.name }}
 		</td>
-		<td>
+		<td data-ng-show="nodeType.name != 'Default'">
 			<div style="float: right">
-				<a class="btn btn-primary btn-sm" href="#edit/node-type/{{ nodeType.id | encodeURIComponent }}" title="Edit Node Type"><i class="fa fa-edit"> <small>Edit</small></i> </a>
-				<button class="btn btn-danger btn-sm" data-ng-click="deleteNodeType(nodeType.id)" title="Delete" data-confirm="Delete Node Type?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
+				<a class="btn btn-primary btn-sm" href="#node-type/{{ nodeType.name | encodeURIComponent }}/edit" title="Edit Node Type"><i class="fa fa-edit"> <small>Edit</small></i> </a>
+				<button class="btn btn-danger btn-sm" data-ng-click="deleteNodeType(nodeType.name)" title="Delete" data-confirm="Delete Node Type?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
 			</div>
 		</td>
 		</tr>

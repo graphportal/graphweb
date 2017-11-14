@@ -1,4 +1,4 @@
-<div class="col-sm-12 blog-main"><h2>Edit Node</h2>
+<div class="col-sm-12"><h2>Edit Node</h2>
 	<div>
 		<script type="text/ng-template" id="alert.html">
 				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
@@ -7,36 +7,66 @@
 			</script>
 	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
 	</div>
-	<div class="form-group">
+	<div class="row">
+		<div class="col-sm-6">
            <label  for="nameField">Name*</label>
            <input  type="text" class="form-control" id="nameField" data-ng-model="node.name" data-ng-required="true"  placeholder="Node Name" value="{{ node.name }}" autofocus/>
-       </div>		
-       <div class="form-group">
-       		<label  for="topLevelField">Top Level Node?&nbsp;&nbsp;</label>
-		    <input type="checkbox" name="topLevelField" id="topLevelField" data-ng-model="node.topLevel">
-  	   </div>
-       <div class="form-group">
-           <label  for="descField">Description (optional)</label>
-           <textarea class="form-control" id="descField" placeholder="Description" data-ng-model="node.description" rows="3">{{ node.description }}</textarea>
+		</div>
+	</div>
+	<div class="row">
+       <div class="col-sm-12">
+           <label  for="descField">Description</label>
+           <textarea id="descField" class="form-control" placeholder="Optional Description" data-ng-model="node.description" rows="3">{{ node.description }}</textarea>
        </div>
-       <div class="form-group">
+	</div>
+	<div class="row">
+      <div class="col-sm-12">
+           <label  for="contentField">Content</label>
+           <textarea id="contentField" class="form-control" placeholder="Optional Content" data-ng-model="node.content" rows="12">{{ node.content }}</textarea>
+           <div text-angular data-ng-model="node.content"></div>
+       </div>
+	</div>
+	<div class="row">
+		<br/>
+       <div class="col-sm-3">
            <label for="contentTypeField">Content Type</label>
-           <select class="form-control" name="contentTypeField" id="contentTypeField" data-ng-model="contentTypes.selectedOption"
+           <select name="contentTypeField" id="contentTypeField" data-ng-model="contentTypes.selectedOption"
            		data-ng-options="contentType.name for contentType in contentTypes.availableOptions track by contentType.id">
      		</select>
        </div>
-       
-      <div class="form-group">
-           <label  for="contentField">Content (optional)</label>
-           <textarea class="form-control" id="contentField" placeholder="Content" data-ng-model="node.content" rows="12">{{ node.content }}</textarea>
-           <div text-angular data-ng-model="node.content"></div>
-       </div>
+       <div class="col-sm-3" data-ng-show="!node.id">
+       		<label  for="nodeTypeField">Node Type</label>
+          	<select name="nodeTypeField" id="nodeTypeField" data-ng-model="node.nodeType"
+           		data-ng-options="nodeType.name as nodeType.name for nodeType in nodeTypes">
+     		</select>
+  	   </div>  	   
+       <div class="col-sm-3">
+       		<label  for="topLevelField">Top Level Node?</label>
+		    <input type="checkbox" name="topLevelField" id="topLevelField" data-ng-model="node.topLevel">
+  	   </div>
+	</div>
+	<div class="row">
        <uib-accordion>
-        <uib-accordion-group heading="Advanced Configuration">
+        <uib-accordion-group heading="Extended Properties" is-open="true" >
+        <table class="table table-striped">
+			<tbody>
+	        	<tr ng-repeat="property in node.attributes">
+					<td>
+		        		<label  for="attrField">{{ property.name }}</label>
+		        	</td>
+		        	<td>
+		        		<input  type="text" id="attrField" placeholder="{{ property.name }}" data-ng-model="property.data"/>
+		        	</td>
+	        	</tr>
+			</tbody>
+		</table>        	
         </uib-accordion-group>
        </uib-accordion>
+	</div>
+	<div class="row">
        <div>
-       	<button data-ng-click="saveNode()" class="btn btn-primary"><i class="fa fa-save"> Save</i></button>
-       	<button back class="btn btn-primary"><i class="fa"> Cancel</i></button>
+	       	<button data-ng-click="saveNode()" class="btn btn-primary"><i class="fa fa-save"> Save</i></button>
+	       	<button back class="btn btn-primary"><i class="fa"> Cancel</i></button>
+	    </div>
     </div>
  	</div>

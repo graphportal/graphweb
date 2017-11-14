@@ -10,15 +10,19 @@ graphApp.config(function($routeProvider) {
 			controller : 'EdgeTypeListController',
 			templateUrl : 'partials/admin/edge-type-list.html'})
 			
+		.when('/node-types/', {
+			controller : 'NodeTypeListController',
+			templateUrl : 'partials/admin/node-type-list.html'})
+		
 		.when('/node-type/:nodeTypeId', {
 			controller : 'NodeTypeController',
 			templateUrl : 'partials/admin/node-type.html'})
 			
-		.when('/edit/node-type/:nodeTypeId', {
+		.when('/node-type/:nodeTypeName/edit', {
 			controller : 'NodeTypeController',
 			templateUrl : 'partials/admin/node-type-edit.html'})		
 		
-		.when('/edge-type/', {
+		.when('/edge-types/', {
 			controller : 'EdgeTypeListController',
 			templateUrl : 'partials/admin/edge-type-list.html'})
 			
@@ -85,8 +89,8 @@ graphApp.factory('graphDataFactory', function($http) {
 		return $http.get(restRoot + 'node-types');
 	};
 
-	factory.getNodeType = function(nodeTypeId) {
-		return $http.get(restRoot + 'node-type/' + nodeTypeId);
+	factory.getNodeType = function(nodeTypeName) {
+		return $http.get(restRoot + 'node-type/' + nodeTypeName);
 	};
 	factory.saveNodeType = function(nodeType) {
 		return $http.post(restRoot + 'node-type', nodeType);
@@ -131,6 +135,7 @@ graphApp.controller('NodeTypeListController', function($scope, graphDataFactory,
 	};
 	graphDataFactory.getNodeTypeList().then(
 		function(response) { 
+			console.log(response.data)
 			$scope.nodeTypes = response.data;}, 
 		function(response) { 
 			$scope.alerts.push({type: 'danger', msg: response.data});
@@ -154,11 +159,12 @@ graphApp.controller('NodeTypeListController', function($scope, graphDataFactory,
 graphApp.controller('NodeTypeController', function($scope, $routeParams, graphDataFactory, $filter) {
 	$scope.alerts = [];
 	$scope.closeAlert = function(index) {
-		    $scope.alerts.splice(index, 1);
+		$scope.alerts.splice(index, 1);
 	};
-	$scope.nodeTypeId = $routeParams.nodeTypeId;
-		if ($routeParams.nodeTypeId && $routeParams.nodeTypeId != 'new') {
-		graphDataFactory.getNodeType($filter('encodeURIComponent')($scope.nodeTypeId)).then(
+	$scope.nodeTypeName = $routeParams.nodeTypeName;
+	if ($routeParams.nodeTypeName && $routeParams.nodeTypeName != 'new') {
+		console.log($scope.nodeTypeName)
+		graphDataFactory.getNodeType($filter('encodeURIComponent')($scope.nodeTypeName)).then(
 			function(response) { 
 				$scope.nodeType = response.data;}, 
 			function(response) { 
@@ -166,9 +172,10 @@ graphApp.controller('NodeTypeController', function($scope, $routeParams, graphDa
 		});
 	} else {
 		$scope.nodeType = {};
+		$scope.nodeType.attributes = [];
 	};
-	$scope.deleteNodeType = function(nodeTypeId) {
-		graphDataFactory.deleteNodeType($filter('encodeURIComponent')(nodeTypeId)).then(
+	$scope.deleteNodeType = function(nodeTypeName) {
+		graphDataFactory.deleteNodeType($filter('encodeURIComponent')(nodeTypeName)).then(
 			function(response) {
 				graphDataFactory.getNodeTypes().then(
 					function(response) { 
@@ -182,14 +189,21 @@ graphApp.controller('NodeTypeController', function($scope, $routeParams, graphDa
 			});
 	};
 	$scope.saveNodeType = function() {
+		console.log($scope.nodeType)
 		graphDataFactory.saveNodeType($scope.nodeType).then(
 			function(response) {
 				window.history.back();
 			}, 
 			function(response) {
-				$scope.errors.serviceErrors = response.data;
+				$scope.alerts.push({type: 'danger', msg: response.data});
 			});
 	};
+	$scope.addAttrib = function() {
+		$scope.nodeType.attributes.push({});
+	}
+	$scope.deleteAttrib = function(i) {
+		$scope.nodeType.attributes.splice(i, 1);
+	}
 });
 
 graphApp.controller('EdgeTypeListController', function($scope, graphDataFactory, $filter) {

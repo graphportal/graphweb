@@ -1,4 +1,4 @@
-<div class="col-sm-8 blog-main" data-ng-model="nodeType"><h2>Edit Node Types</h2>
+<div class="col-sm-8 blog-main" data-ng-model="nodeType"><h2>Edit Node Type</h2>
 	<div>
 		<script type="text/ng-template" id="alert.html">
 				<div class="alert" style="background-color:#fa39c3;color:white" role="alert">
@@ -9,15 +9,15 @@
 	</div>
 	<div class="form-group">
            <label  for="nameField">Name*</label>
-           <input  type="text" class="form-control" id="nameField" placeholder="Node Type Name" data-ng-required="true"  value="{{ nodeType.name }}" />
+           <input  type="text" class="form-control" id="nameField" placeholder="Node Type Name" data-ng-required="true"  data-ng-model="nodeType.name" />
        </div>	
        <div class="form-group">
            <label  for="descField">Description</label>
-           <textarea class="form-control" id="descField" placeholder=" Description" rows="5">{{ nodeType.description }}</textarea>
+           <textarea class="form-control" id="descField" placeholder=" Description" rows="5" data-ng-model="nodeType.description"></textarea>
        </div>
        <div class="form-group">
            <label  for="contentTypeField">Node Content Type</label>
-           <select class="form-control" id="contentTypeField" >
+           <select class="form-control" id="contentTypeField" data-ng-model="nodeType.contentType">
            	<option value="html">HTML</option>
            	<option value="text">Text</option>
            	<option value="csv">CSV</option>
@@ -25,6 +25,34 @@
            	<option value="json">JSON</option>
            	<option value="java">Java</option>
        	</select>
-       </div>     	
+       </div> 
+       <div>
+       		Extended Attributes <button class="btn btn-primary btn-sm" data-ng-click="addAttrib()" title="Add Attribute"><i class="fa fa-edit"><small>+</small></i></button>
+       </div>
+       <table class="table table-striped">
+		<tbody>
+			<tr><td>Name</td><td>Type</td><td></td></tr>
+			<tr data-ng-repeat="attrib in nodeType.attributes">
+			<td>
+	           <input type="text" id="nameField" placeholder="Attribute Name" data-ng-required="true"  data-ng-model="attrib.name" />
+			</td>
+			<td>
+	           	<select id="typeField" data-ng-model="attrib.type">
+	           		<option value="STRING">String</option>
+	           		<option value="INTEGER">Integer</option>
+	           		<option value="LONG">Long</option>
+	           		<option value="FLOAT">Float</option>
+	           		<option value="DOUBLE">Double</option>
+	           		<option value="DATETIME">Datetime</option>
+	       		</select>
+       		</td>
+			<td>
+				<div style="float: right">
+					<button class="btn btn-danger btn-sm" data-ng-click="deleteAttrib($index)" title="Delete"><i class="fa fa-trash-o"> </i></button>
+				</div>
+			</td>
+			</tr>
+		</tbody>
+	</table>   	
 	<button data-ng-click="saveNodeType()" class="btn btn-primary">Save</button>
 </div>

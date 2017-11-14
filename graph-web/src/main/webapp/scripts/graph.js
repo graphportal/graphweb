@@ -233,6 +233,18 @@ graphApp.factory('graphDataFactory', function($http) {
 	factory.getEdgeTypes = function() {
 		return $http.get(restRoot + 'edge-types');
 	};	
+	
+	factory.getNodeContentTypes = function() {
+		return [	
+		     {id: 'html', name: 'HTML Content'},
+			   {id: 'text', name: 'Plain Text'},
+			   {id: 'text+', name: 'Text+'}
+			   ];
+	};
+	
+	factory.getNodeTypes = function() {
+		return $http.get(restRoot + 'node-types');
+	};
 	factory.getClipBoard = function() {
 		return $http.get(restRoot + 'cb');
 	};
@@ -289,14 +301,7 @@ graphApp.factory('graphDataFactory', function($http) {
 	factory.changePassword = function(passwords) {
 		return $http.post(restSecRoot + 'change-password', passwords);
 	};
-	
-	factory.getNodeContentTypes = function() {
-		return [	
-		     {id: 'html', name: 'HTML Content'},
-			   {id: 'text', name: 'Plain Text'},
-			   {id: 'text+', name: 'Text+'}
-			   ];
-	};
+
 	
 	return factory;
 });
@@ -373,7 +378,7 @@ graphApp.controller('DomainListController', function($scope, graphDataFactory, $
 graphApp.controller('NodeController', function($scope, $routeParams, graphDataFactory, $filter, $window) {
 	$scope.alerts = [];
 	$scope.closeAlert = function(index) {
-		    $scope.alerts.splice(index, 1);
+		$scope.alerts.splice(index, 1);
 	};
 
 	$scope.contentTypes = {
@@ -381,6 +386,34 @@ graphApp.controller('NodeController', function($scope, $routeParams, graphDataFa
 	    selectedOption: {id:'html'}
 	};
 	
+	$scope.$watch('node.nodeType', function(newValue, oldValue) {
+		if (newValue && oldValue && newValue != oldValue) {
+			if ($scope.node && $scope.node.nodeType) {
+				if ($scope.nodeTypes) {
+					for (var i = 0; i < $scope.nodeTypes.length; i++) {
+					    if ($scope.nodeTypes[i].name == $scope.node.nodeType) {
+							$scope.selectedNodeType = $scope.nodeTypes[i];
+							break;
+					    }
+					}
+					if ($scope.selectedNodeType && $scope.selectedNodeType.attributes) {
+						$scope.node.attributes = []
+						for (var i = 0; i < $scope.selectedNodeType.attributes.length; i++) {
+							$scope.node.attributes.push({name: $scope.selectedNodeType.attributes[i].name, value: ""});
+						}
+					}
+				}
+			}
+		}
+	});
+	
+	graphDataFactory.getNodeTypes().then(
+		function(response) {
+			$scope.nodeTypes = response.data;
+		}, 
+		function(response) {
+			$scope.alerts.push({type: 'danger', msg: response.data});
+	});
 	
 	$scope.nodeId = $routeParams.nodeId;
 	if ($routeParams.nodeId && $routeParams.nodeId != 'new') {
@@ -389,11 +422,11 @@ graphApp.controller('NodeController', function($scope, $routeParams, graphDataFa
 				$scope.node = response.data;
 				$scope.contentTypes.selectedOption = {id: $scope.node.contentType}
 				graphDataFactory.getDomain($filter('encodeURIComponent')($scope.node.domainId)).then(
-						function(response) { 
-							$scope.domain = response.data;
-						}, 
-						function(response) { 
-							$scope.alerts.push({type: 'danger', msg: response.data});
+					function(response) { 
+						$scope.domain = response.data;
+					}, 
+					function(response) { 
+						$scope.alerts.push({type: 'danger', msg: response.data});
 				});
 			}, 
 			function(response) { 
@@ -433,7 +466,7 @@ graphApp.controller('NodeController', function($scope, $routeParams, graphDataFa
 	
 	$scope.saveNode = function() {
 		$scope.node.contentType = $scope.contentTypes.selectedOption.id
-		console.log($scope.node.contentType )
+		console.log(angular.toJson($scope.node))
 		graphDataFactory.saveNode($scope.node).then(
 			function(response) {
 				window.history.back();
