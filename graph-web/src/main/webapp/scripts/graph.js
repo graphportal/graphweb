@@ -420,6 +420,7 @@ graphApp.controller('NodeController', function($scope, $routeParams, graphDataFa
 		graphDataFactory.getNode($filter('encodeURIComponent')($scope.nodeId)).then(
 			function(response) { 
 				$scope.node = response.data;
+				console.log($scope.node)
 				$scope.contentTypes.selectedOption = {id: $scope.node.contentType}
 				graphDataFactory.getDomain($filter('encodeURIComponent')($scope.node.domainId)).then(
 					function(response) { 
@@ -544,6 +545,7 @@ graphApp.controller('NodeAndLinkEditController', function($scope, $routeParams, 
 	$scope.closeAlert = function(index) {
 		    $scope.alerts.splice(index, 1);
 	};
+	// @@
 	$scope.nodeAndLink = {};
 	$scope.nodeAndLink.node = {}
 	$scope.nodeAndLink.relation = $routeParams.relation;
@@ -557,6 +559,7 @@ graphApp.controller('NodeAndLinkEditController', function($scope, $routeParams, 
 	graphDataFactory.getNode($filter('encodeURIComponent')($routeParams.nodeId)).then(
 			function(response) { 
 				$scope.sourceNode = response.data;
+				$scope.nodeAndLink.node.nodeType = $scope.sourceNode.nodeType
 				$scope.contentTypes.selectedOption.id = $scope.sourceNode.contentType;
 				
 			},
@@ -569,6 +572,17 @@ graphApp.controller('NodeAndLinkEditController', function($scope, $routeParams, 
 			$scope.edgeTypes = response.data;
 			if ($scope.edgeTypes.length == 1) {
 				$scope.nodeAndLink.edgeType = $scope.edgeTypes[0].name;
+			}
+		},
+		function(response) { 
+			$scope.alerts.push({type: 'danger', msg: response.data});
+	});
+
+	graphDataFactory.getNodeTypes().then(
+		function(response) { 
+			$scope.nodeTypes = response.data;
+			if ($scope.edgeTypes.length == 1) {
+				scope.nodeAndLink.node.nodeType = $scope.nodeTypes[0].name;
 			}
 		},
 		function(response) { 
