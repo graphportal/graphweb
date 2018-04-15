@@ -2,7 +2,7 @@
     <wb-module deploy-name="graph-web">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="context-root" value="graph-web"/>
         <property name="java-output-path" value="/graph-web/build/classes"/>
     </wb-module>
