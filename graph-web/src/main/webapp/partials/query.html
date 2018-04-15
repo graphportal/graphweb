@@ -23,11 +23,11 @@
 		<tbody>
 			<tr data-ng-repeat="node in nodes">
 			<td>
-				<h4><a href="#node/{{ node.id | encodeURIComponent }}">{{ node.name }}</a></h4>
+				<h4><a href="#/node/{{ node.id | encodeURIComponent }}">{{ node.name }}</a></h4>
 				<p data-ng-bind-html="node.description"></p>
 			</td><td>	
 				<div style="float: right"> 
-					<a class="btn btn-primary btn-sm" href="#edit/node/{{ node.id | encodeURIComponent}}" title="Edit Node">
+					<a class="btn btn-primary btn-sm" href="#/node/{{ node.id | encodeURIComponent}}/edit" title="Edit Node">
 						<i class="fa fa-edit"> Edit</i>
 					</a>
 					<button class="btn btn-primary btn-sm" data-ng-click="copyToCB(node.id)" title="Copy to Clipboard"><i class="fa fa-copy"> Copy</i></button>

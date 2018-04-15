@@ -6,7 +6,7 @@ graphApp.config(function($routeProvider) {
 			controller : 'DomainListController',
 			templateUrl : 'partials/domain-list.html'})
 			
-		.when('/edit/domain/:domainId', {
+		.when('/domain/:domainId/edit', {
 			controller : 'DomainController',
 			templateUrl : 'partials/domain-edit.html'})		
 		
@@ -14,23 +14,23 @@ graphApp.config(function($routeProvider) {
 			controller : 'NodeController',
 			templateUrl : 'partials/node.html'})
 			
-		.when('/edit/node/:nodeId/', {
+		.when('/node/:nodeId/edit', {
 			controller : 'NodeController',
 			templateUrl : 'partials/node-edit.html'})	
 			
-		.when('/new/:relation/node/:nodeId/', {
+		.when('/:relation/node/:nodeId/new/', {
 			controller : 'NodeAndLinkEditController',
 			templateUrl : 'partials/node-n-link-edit.html'})	
 			
-		.when('/edit/content/node/:nodeId', {
+		.when('/content/node/:nodeId/edit', {
 			controller : 'NodeController',
 			templateUrl : 'partials/node-content-edit.html'})	
 		
-		.when('/link/node/:nodeId', {
+		.when('/node/:nodeId/link', {
 			controller : 'NodeLinkController',
 			templateUrl : 'partials/node-link.html'})
 
-		.when('/attach/node/:nodeId', {
+		.when('/node/:nodeId/attach', {
 			controller : 'NodeAttachmentController',
 			templateUrl : 'partials/node-attach.html'})
 			
@@ -50,7 +50,7 @@ graphApp.config(function($routeProvider) {
 			controller : 'QueryController',
 			templateUrl : 'partials/query.html'})
 			
-		.when('/edit/query/:queryId/', {
+		.when('/query/:queryId/edit/', {
 			controller : 'QueryController',
 			templateUrl : 'partials/query-edit.html'})
 			
@@ -158,6 +158,31 @@ graphApp.directive('back', ['$window', function($window) {
     };
 }]);
 
+graphApp.directive('ckEditor', function () {
+	  return {
+	    require: '?ngModel',
+	    link: function (scope, elm, attr, ngModel) {
+	      var ck = CKEDITOR.replace(elm[0]);
+	      if (!ngModel) return;
+	      ck.on('instanceReady', function () {
+	        ck.setData(ngModel.$viewValue);
+	      });
+	      function updateModel() {
+	        scope.$apply(function () {
+	          ngModel.$setViewValue(ck.getData());
+	        });
+	      }
+	      ck.on('change', updateModel);
+	      ck.on('key', updateModel);
+	      ck.on('dataReady', updateModel);
+
+	      ngModel.$render = function (value) {
+	        ck.setData(ngModel.$viewValue);
+	      };
+	    }
+	  };
+});
+
 graphApp.factory('graphDataFactory', function($http) {
 	var factory = {};
 	var restRoot = 'resource/graph/';
@@ -236,7 +261,7 @@ graphApp.factory('graphDataFactory', function($http) {
 	
 	factory.getNodeContentTypes = function() {
 		return [	
-		     {id: 'html', name: 'HTML Content'},
+		     {id: 'html', name: 'Web Content (HTML)'},
 			   {id: 'text', name: 'Plain Text'},
 			   {id: 'text+', name: 'Text+'}
 			   ];
@@ -420,7 +445,6 @@ graphApp.controller('NodeController', function($scope, $routeParams, graphDataFa
 		graphDataFactory.getNode($filter('encodeURIComponent')($scope.nodeId)).then(
 			function(response) { 
 				$scope.node = response.data;
-				console.log($scope.node)
 				$scope.contentTypes.selectedOption = {id: $scope.node.contentType}
 				graphDataFactory.getDomain($filter('encodeURIComponent')($scope.node.domainId)).then(
 					function(response) { 
@@ -467,7 +491,6 @@ graphApp.controller('NodeController', function($scope, $routeParams, graphDataFa
 	
 	$scope.saveNode = function() {
 		$scope.node.contentType = $scope.contentTypes.selectedOption.id
-		console.log(angular.toJson($scope.node))
 		graphDataFactory.saveNode($scope.node).then(
 			function(response) {
 				window.history.back();
@@ -625,7 +648,6 @@ graphApp.controller('NodeListController', function($scope, $routeParams, graphDa
 	$scope.currentPage = 1;
 
 	$scope.pageChanged = function() {
-		console.log('Current page: ' + $scope.currentPage);
 		$scope.totalItems = 50;
 		graphDataFactory.getPagedNodeList($filter('encodeURIComponent')($scope.domainId), $scope.currentPage).then(
 			function(response) { 
@@ -670,7 +692,6 @@ graphApp.controller('SearchController', function($scope, $routeParams, graphData
 	} else {
 		graphDataFactory.search($scope.query).then(
 			function(response) {
-				console.log(response.data)
 				if (response.data) {
 					$scope.searchResults = response.data
 				} else {
@@ -945,7 +966,6 @@ graphApp.controller('LoginController', function($scope, graphDataFactory, $rootS
 			usr = {}
 			usr.name = $scope.user.name;
 			usr.password = Base64.encode($scope.user.password);
-			console.log(usr.password)
 			graphDataFactory.login(usr).then(
 				function(response) {
 					$rootScope.isLoggedIn = true;
@@ -974,7 +994,6 @@ graphApp.controller('AuthenticationController', function($scope, graphDataFactor
 		user = {};
 		user.name = $scope.username;
 		user.password = Base64.encode($scope.password);
-		console.log(user.password)
 		graphDataFactory.login(user).then(
 			function(response) { 
 				$rootScope.isLoggedIn = true;
@@ -1033,7 +1052,7 @@ graphApp.controller('AuthenticationController', function($scope, graphDataFactor
 function search() {
 	var button = document.getElementById("searchButton"),
 	query =  button.form.searchQuery.value;
-	window.location = "index.html#/search?query=" + query
+	window.location = "#/search?query=" + query
 }
 
 // Base64 encoding service used by AuthenticationService

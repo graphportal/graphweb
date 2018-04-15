@@ -10,7 +10,7 @@
 	
 	<div class="blog-post">
 		<div>
-			<a href="index.html#/nodes/domain/{{ node.domainId | encodeURIComponent }}/">{{ domain.name }}</a>
+			<a href="#/nodes/domain/{{ node.domainId | encodeURIComponent }}/">{{ domain.name }}</a>
 		</div>
 		
 		<h2 class="blog-post-title" data-ng-bind-html="node.name"></h2>
@@ -18,39 +18,25 @@
 		<p data-ng-bind-html="node.description"></p>
 		<hr>
 		<div class="content" data-ng-bind-html="content"></div>
-		<div class="content-buttons">
-			<div data-ng-switch data-on="node.contentType">
-    			<div data-ng-switch-when="html">
-					<a data-ng-if="showControls" class="btn btn-primary btn-sm" href="edit-text.html#?nodeId={{ node.id | encodeURIComponent }}" title="Edit Node Content">
-					<i class="fa fa-edit"> <small>Edit Content</small></i>
-					</a> 
-    			</div>
-    			<div data-ng-switch-default>
-					<a data-ng-if="showControls" class="btn btn-primary btn-sm" href="#edit/content/node/{{ node.id | encodeURIComponent }}" title="Edit Node Content">
-						<i class="fa fa-edit"> <small>Edit Content</small></i>
-					</a>
-    			</div>
-			</div>
-		</div>
 		<hr>
 		<div data-ng-if="showControls">
-			<a class="btn btn-primary btn-sm" href="#edit/node/{{ node.id | encodeURIComponent }}" title="Edit Node">
+			<a class="btn btn-primary btn-sm" href="#/node/{{ node.id | encodeURIComponent }}/edit" title="Edit Node">
 				<i class="fa fa-edit"> <small>Edit</small></i>
 			</a>
 			<button class="btn btn-primary btn-sm" data-ng-click="copyToCB(node.id)" title="Copy"><i class="fa fa-copy"> <small>Copy</small></i></button>
 			<a class="btn btn-primary btn-sm" href="graph-visual-edit.html#?nodeId={{ node.id | encodeURIComponent }}" title="Link Node">
 				<i class="fa fa-puzzle-piece"> <small>Graph</small></i>
 			</a>
-			<a class="btn btn-primary btn-sm" href="#link/node/{{ node.id | encodeURIComponent }}" title="Link Node">
+			<a class="btn btn-primary btn-sm" href="#/node/{{ node.id | encodeURIComponent }}/link" title="Link Node">
 				<i class="fa fa-chain"> <small>Link</small></i>
 			</a>
-			<a class="btn btn-primary btn-sm" href="#attach/node/{{ node.id | encodeURIComponent }}" title="Link Node">
+			<a class="btn btn-primary btn-sm" href="#/node/{{ node.id | encodeURIComponent }}/attach" title="Link Node">
 				<i class="fa fa-paperclip"> <small>Attach</small></i>
 			</a>
-			<a class="btn btn-primary btn-sm" href="#new/child/node/{{ node.id | encodeURIComponent }}?domainId={{ node.domainId | encodeURIComponent}}">
+			<a class="btn btn-primary btn-sm" href="#/child/node/{{ node.id | encodeURIComponent }}/new?domainId={{ node.domainId | encodeURIComponent}}">
 				<i class="fa fa-arrow-right"> <small>New Child</small></i>
 			</a>
-			<a class="btn btn-primary btn-sm" href="#new/parent/node/{{ node.id | encodeURIComponent }}?domainId={{ node.domainId | encodeURIComponent}}">
+			<a class="btn btn-primary btn-sm" href="#/parent/node/{{ node.id | encodeURIComponent }}/new?domainId={{ node.domainId | encodeURIComponent}}">
 				<i class="fa fa-arrow-left"> <small>New Parent</small></i>
 			</a>
 			<button class="btn btn-danger btn-sm" data-ng-click="deleteNode(node.id)" title="Delete" data-confirm="Delete Node?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
@@ -72,7 +58,7 @@
 		<div class="sidebar-module-inset">
 			<h4>{{ parents.title }}</h4>
 			<ul>
-				<li data-ng-repeat="parent in parents.nodes"><a href="#node/{{ parent.node.id | encodeURIComponent }}">{{ parent.node.name }}</a>&nbsp;&nbsp;
+				<li data-ng-repeat="parent in parents.nodes"><a href="#/node/{{ parent.node.id | encodeURIComponent }}">{{ parent.node.name }}</a>&nbsp;&nbsp;
 				<button class="btn btn-sm" data-ng-click="unlink(parent.node.id, node.id, parent.edge)" title="Unlink"><i class="fa fa-unlink"></i></button></li>
 			</ul>
 		</div>	
@@ -81,7 +67,7 @@
 		<div class="sidebar-module-inset">
 			<h4>{{ children.title }}</h4>
 			<ul>
-				<li data-ng-repeat="child in children.nodes"><a href="#node/{{ child.node.id | encodeURIComponent }}">{{ child.node.name }}</a>&nbsp;&nbsp;
+				<li data-ng-repeat="child in children.nodes"><a href="#/node/{{ child.node.id | encodeURIComponent }}">{{ child.node.name }}</a>&nbsp;&nbsp;
 					<button class="btn btn-sm" data-ng-click="unlink(node.id, child.node.id, child.edge)" title="Unlink"><i class="fa fa-unlink"></i></button>
 				</li>
 			</ul>	

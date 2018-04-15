@@ -12,12 +12,12 @@
 		<tbody>
 			<tr data-ng-repeat="searchResult in searchResults">
 			<td>
-				<span class="blog-post-subtitle"><a href="#node/{{ searchResult.node.id | encodeURIComponent }}">{{ searchResult.node.name }}</a></span>
+				<span class="blog-post-subtitle"><a href="#/node/{{ searchResult.node.id | encodeURIComponent }}">{{ searchResult.node.name }}</a></span>
 				<p data-ng-bind-html="searchResult.highlightText"></p>
 			</td>
 			<td>
 				<div style="float: right" data-ng-if="showControls">
-					<a class="btn btn-primary btn-sm" href="#edit/node/{{ searchResult.node.id | encodeURIComponent}}" title="Edit Node"><i class="fa fa-edit"> <small>Edit</small></i></a> 
+					<a class="btn btn-primary btn-sm" href="#/node/{{ searchResult.node.id | encodeURIComponent}}/edit" title="Edit Node"><i class="fa fa-edit"> <small>Edit</small></i></a> 
 					<button class="btn btn-primary btn-sm" data-ng-click="copyToCB(searchResult.node.id)" title="Copy to Clipboard"><i class="fa fa-copy"> <small>Copy</small></i></button>
 					<button class="btn btn-danger btn-sm" data-ng-click="deleteNode(searchResult.node.id)" title="Delete" data-confirm="Delete Node?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
 				</div>

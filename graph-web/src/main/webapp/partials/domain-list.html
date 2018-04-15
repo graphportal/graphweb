@@ -8,14 +8,14 @@
 	  <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
 	</div>
 	<div data-ng-if="showControls" style="float: right;">
-		<a class="btn btn-primary" href="#edit/domain/new" title="Create a new Domain"><i class="fa fa-file-o"> New Domain</i></a>
+		<a class="btn btn-primary" href="#/domain/new/edit" title="Create a new Domain"><i class="fa fa-file-o"> New Domain</i></a>
 	</div>
        <table class="table table-striped">
 		<tbody>
 			<tr data-ng-repeat="domain in domains">
 			<td>
 				<div class="blog-post" >
-					<span class="blog-post-subtitle"><a href="#nodes/domain/{{ domain.id | encodeURIComponent }}">{{ domain.name }}</a></span>
+					<span class="blog-post-subtitle"><a href="#/nodes/domain/{{ domain.id | encodeURIComponent }}">{{ domain.name }}</a></span>
 					<div class="blog-post-meta">
 						<small>Created by {{ domain.createdBy }} on {{ domain.creationDate | date:'yyyy-MM-dd h:mm a' }}</small>
 					</div>
@@ -24,7 +24,7 @@
 			</td>
 			<td>
 				<div style="float: right" data-ng-if="showControls">
-					<a class="btn btn-primary btn-sm" href="#edit/domain/{{ domain.id | encodeURIComponent }}" title="Edit Domain"><i class="fa fa-edit"> <small>Edit</small></i> </a>
+					<a class="btn btn-primary btn-sm" href="#/domain/{{ domain.id | encodeURIComponent }}/edit" title="Edit Domain"><i class="fa fa-edit"> <small>Edit</small></i> </a>
 					<button class="btn btn-danger btn-sm" type="button" data-ng-click="deleteDomain(domain.id)" title="Delete" data-confirm="Delete Domain?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
 				</div>
 			</td>

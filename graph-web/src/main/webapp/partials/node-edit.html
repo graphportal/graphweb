@@ -22,8 +22,12 @@
 	<div class="row">
       <div class="col-sm-12">
            <label  for="contentField">Content</label>
-           <textarea id="contentField" class="form-control" placeholder="Optional Content" data-ng-model="node.content" rows="12">{{ node.content }}</textarea>
-           <div text-angular data-ng-model="node.content"></div>
+           <div data-ng-if="node.contentType === 'html'">
+           	<textarea id="contentField" class="form-control" placeholder="Optional Content" data-ng-model="node.content" rows="12" data-ck-editor></textarea>
+           </div>
+           <div data-ng-if="node.contentType != 'html'">
+           	<textarea id="contentField" class="form-control" placeholder="Optional Content" data-ng-model="node.content" rows="12"></textarea>
+           </div>
        </div>
 	</div>
 	<div class="row">

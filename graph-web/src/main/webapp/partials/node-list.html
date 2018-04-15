@@ -9,18 +9,18 @@
 	</div>
 	<div>{{ domain.name }}</div>
 	<div data-ng-if="showControls" style="float: right;">
-		<a class="btn btn-primary" href="#edit/node/new?domainId={{ domainId | encodeURIComponent }}" title="Create a new Node"><i class="fa fa-file-o"> New Node</i></a>
+		<a class="btn btn-primary" href="#/node/new/edit?domainId={{ domainId | encodeURIComponent }}" title="Create a new Node"><i class="fa fa-file-o"> New Node</i></a>
 	</div>
     <table class="table table-striped">
 		<tbody>
 			<tr data-ng-repeat="node in nodes">
 			<td>
-				<span class="blog-post-subtitle"><a href="#node/{{ node.id | encodeURIComponent }}">{{ node.name }}</a></span>
+				<span class="blog-post-subtitle"><a href="#/node/{{ node.id | encodeURIComponent }}">{{ node.name }}</a></span>
 				<p data-ng-bind-html="node.description"></p>
 			</td>
 			<td>
 				<div style="float: right" data-ng-if="showControls">
-					<a class="btn btn-primary btn-sm" href="#edit/node/{{ node.id | encodeURIComponent}}" title="Edit Node"><i class="fa fa-edit"> <small>Edit</small></i></a> 
+					<a class="btn btn-primary btn-sm" href="#/node/{{ node.id | encodeURIComponent}}/edit" title="Edit Node"><i class="fa fa-edit"> <small>Edit</small></i></a> 
 					<button class="btn btn-primary btn-sm" data-ng-click="copyToCB(node.id)" title="Copy to Clipboard"><i class="fa fa-clone"> <small>Copy</small></i> </button>
 					<button class="btn btn-danger btn-sm" data-ng-click="deleteNode(node.id)" title="Delete" data-confirm="Delete Node?"><i class="fa fa-trash-o"> <small>Delete</small></i></button>
 				</div>
